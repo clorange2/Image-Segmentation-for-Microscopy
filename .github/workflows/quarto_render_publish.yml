@@ -23,11 +23,11 @@ jobs:
       - name: Build Quarto Project
         run: quarto render
 
-      - name: Deploy to GitHub Pages
+      - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
         with:
-          branch: main
-          folder: docs
+          target: main
+          path: docs
       
       # add software dependencies here
 
