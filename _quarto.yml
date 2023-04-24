@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Sydney Informatics Hub Course name"
+  title: "AlphaFold at Sydney"
   navbar:
     background: primary
     left:
@@ -11,14 +11,22 @@ website:
         text: Home
       - href: setup.html
         text: "Setup"
-      - text: "Session 1"
+      - text: "Sessions"
         menu:
-        - text: "Python from ipynb example"
-          href: notebooks/01a-fundamentals.html
-        - text: "R from qmd example"
-          href: notebooks/01b_exampleRcontent.html
-        - text: "Markdown from md example"
-          href: notebooks/01c_exampleMDcontent.html
+        - text: "Introduction to AlphaFold"
+          href: notebooks/01_alphafold.html
+        - text: "Introduction to HPC"
+          href: notebooks/02_hpc.html
+        - text: "Running AlphaFold on Artemis"
+          href: notebooks/03_artemis.html
+        - text: "Running AlphaFold with Docker/Singularity"
+          href: notebooks/04_singularity.html
+        - text: "Running AlphaFold on NCI Gadi"
+          href: notebooks/05_nci.html
+        - text: "Running AlphaFold on Cloud"
+          href: notebooks/06_aws.html
+        - text: "Running AlphaFold on Google Colab"
+          href: notebooks/07_colabfold.html
 
   body-footer: "All materials copyright Sydney Informatics Hub, University of Sydney"
 
