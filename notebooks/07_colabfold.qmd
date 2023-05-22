@@ -1,6 +1,5 @@
 # Running AlphaFold with ColabFold on Google Colab
 
-
 <div class="questions">
 
 ### Questions
@@ -10,47 +9,14 @@
 - What are the limitations?
 </div>
 
-<div class="objectives">
-  
-### Objectives
+## What is Google Colab?
 
-- Learn the basic Unix commands
-
-</div>
-
-```bash
-# I am a comment
-pwd
-
-for i in $(seq 1 10); do echo $i;done
-```
-
-<div class="challenge">
-
-### Challenge 
-
-This is a challenge question
-
-<details>
-<summary>Solution</summary>
-
-```bash
-
-#Declare the name of the function
-echo "Joy"
-
-```
-</details>
-</div>
+## What is ColabFold?
 
 
+## How do I run AlphaFold with ColabFold?
 
-<div class="keypoints">
+Go here and follow the instructions!
+https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb
 
-### Key points
-
-- Key
-- Points
-- Here
-
-</div>
+## What are the limitations?
