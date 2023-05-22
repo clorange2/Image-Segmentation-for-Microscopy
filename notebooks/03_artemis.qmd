@@ -5,51 +5,96 @@
 
 ### Questions
 
-- What can I do?
-- How do I do it?
+- How do I run AlphaFold on Artemis?
+- How can I modify a template AlphaFold job?
 </div>
 
-<div class="objectives">
-  
-### Objectives
 
-- Learn the basic Unix commands
+# How do I run AlphaFold on Artemis?
 
-</div>
-
-```bash
-# I am a comment
-pwd
-
-for i in $(seq 1 10); do echo $i;done
+AlphaFold can be accessed by executing
+```
+module load alphafold
 ```
 
-<div class="challenge">
+Many of the databases are installed in `/project/data/alphafold`.
+If there is additional databases you require, please fill in a support ticket.
 
-### Challenge 
 
-This is a challenge question
+# How can I modify a template AlphaFold job?
 
-<details>
-<summary>Solution</summary>
+Make a new file called `alpha_job.pbs`.
 
-```bash
+```  
+#!/bin/bash
+#PBS -P Training
+#PBS -l select=1:ncpus=4:mem=8gb:ngpus=0
+#PBS -l walltime=00:10:00
+#PBS -N alphafold2_job
 
-#Declare the name of the function
-echo "Joy"
+# Load necessary modules (on Artemis, this will load the correct python environment with AlphaFold installed)
+module load alphafold2
+
+# Navigate to the AlphaFold2 directory
+cd /project/Training/ALPHAFOLD
+
+# Run the AlphaFold2 prediction command
+python run_alphafold2.py \
+  --input /project/Training/ALPHAFOLD/input.fasta \
+  --output /path/to/output_directory \
+  --model /project/data/alphafold
+  --parameters /path/to/alphafold2_parameters
 
 ```
-</details>
-</div>
+
+Now submit the job to the queue
+```
+qsub alpha_job.pbs
+```
+
+The search parameters for AlphaFold2 can vary depending on the specific requirements and goals of the protein structure prediction. Here are some typical search parameters that can be adjusted:
+
+    Input Sequence: The input sequence is the protein sequence for which the structure is being predicted. It is usually provided in FASTA format.
+
+    Model Selection: AlphaFold2 offers different models for protein structure prediction. Users can choose the most suitable model based on factors such as speed, accuracy, or specific application requirements.
+
+    Confidence Threshold: AlphaFold2 assigns confidence scores to its predictions. Users can set a confidence threshold to filter the predicted structures based on their confidence level. Structures with confidence scores below the threshold may be discarded or further analyzed separately.
+
+    Template Selection: AlphaFold2 utilizes known protein structures, called templates, to aid in its predictions. Users can specify the criteria for template selection, such as sequence similarity or structural homology, to guide the prediction process.
+
+    Energy Minimization: After generating the initial structure predictions, AlphaFold2 can perform energy minimization to refine the predicted structures. Users can specify the parameters for energy minimization, such as the force field or optimization algorithm.
+
+    Residue Range: In some cases, users may want to limit the prediction to a specific range of residues within the protein sequence. This can be useful when focusing on particular regions of interest or dealing with large proteins.
+
+    Output Format: AlphaFold2 can provide the predicted structures in various formats, such as PDB (Protein Data Bank) or mmCIF (macromolecular Crystallographic Information File). Users can specify the desired output format based on their downstream analysis or visualization needs.
+
+These are just a few examples of the typical search parameters that can be adjusted when using AlphaFold2. The specific parameters used will depend on the objectives of the protein structure prediction and the available options provided by the AlphaFold2 software or interface being used.
+
+```
+python run_alphafold2.py \
+  --input input.fasta \
+  --output output_directory \
+  --model alphafold2_model \
+  --parameters alphafold2_parameters \
+  --cpu 4 \
+  --max_template_date 2022-01-01 \
+  --min_covered_residues 0.8 \
+  --max_recursion_depth 3 \
+  --max_hours 0.08
+```
+
+In this example:
+
+* `--input input.fasta` specifies the input FASTA file containing the protein sequence to be predicted.
+* `--output output_directory` specifies the directory where the output files will be saved.
+* `--model alphafold2_model points` to the AlphaFold2 model to be used for prediction.
+* `--parameters alphafold2_parameters` specifies the path to the AlphaFold2 parameters.
+* `--cpu $NCPUS` sets the number of CPUs to be used for the prediction to 4.
+* `--max_template_date 2022-01-01` restricts the use of templates that were released before January 1, 2022.
+* `--min_covered_residues` 0.8 specifies that at least 80% of the protein sequence must have template coverage for a template to be used.
+* `--max_recursion_depth 3` limits the recursion depth during template searching to 3.
+* `--max_hours 0.08` sets the maximum runtime for the prediction to 0.08 hours 
 
 
 
-<div class="keypoints">
 
-### Key points
-
-- Key
-- Points
-- Here
-
-</div>
