@@ -27,6 +27,8 @@ website:
           href: notebooks/06_aws.html
         - text: "Running AlphaFold on Google Colab"
           href: notebooks/07_colabfold.html
+        - text: "Running AlphaFold on Biocommons Galaxy"
+          href: notebooks/08_biocommons.qmd
 
   body-footer: "All materials copyright Sydney Informatics Hub, University of Sydney"
 
