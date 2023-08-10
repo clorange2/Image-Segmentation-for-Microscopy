@@ -18,13 +18,14 @@ However, this is subject to change so might be a good idea to not specifiy.
 Here's an example list.
 This is a good place to define what your preferred name is if you have one.
 
+* Christopher Le
 * Jake Chen
 * Nathaniel (Nate) Butterworth
 
 
 ## Course pre-requisites and setup requirements
 
-No previous programming experience is required, will introduce you to fundamental Unix and HPC as required. Training will be delivered online, so you will need access to a modern computer with a stable internet connection. Participants will require the Sydney VPN and a terminal client (as per the [Setup Instructions](./setup.html) provided).
+No previous programming experience is required, this training course will introduce you to fundamental Unix and HPC as required. Training will be delivered online, so you will need access to a modern computer with a stable internet connection. Participants will require the Sydney VPN and a terminal client (as per the [Setup Instructions](./setup.html) provided).
 
 
 ## Venue
@@ -34,7 +35,7 @@ In almost all cases, our courses are delivered from Sydney and times are reporte
 
 #### Zoom etiquette and how we interact
 
-Sessions will be recorded and added to this page. Please interrupt whenever you want! Ideally, have your camera on and interact as much as possible. There will be someone monitoring the chat-window with any questions you would like to post there.  Three hours is a long Zoom session so we have plenty of scheduled breaks combined with a mix of hands-on content.
+Sessions will be recorded and added to this page. Please interrupt whenever you want! Ideally, have your camera on and interact as much as possible. There will be someone monitoring the chat-window for any questions you would like to post there.  Extending for a three-hour duration, our Zoom session incorporates regular breaks and a blend of demonstrative and hands-on material.
 
 
 ## Code of Conduct
@@ -54,7 +55,7 @@ In order to foster a positive and professional learning environment we encourage
 * Focus on what is best for the community
 * Show courtesy and respect towards other community members
 
-Our full CoC, with incident reporting guidelines, is available [here]https://sydney-informatics-hub.github.io/codeofconduct/).
+Our full CoC, with incident reporting guidelines, is available [Here](https://sydney-informatics-hub.github.io/codeofconduct/).
 
 
 
