@@ -30,4 +30,21 @@ The command line AlphaFold2 application is a software package that runs on a loc
 It is customizable and allows researchers to fine-tune the prediction process according to their specific requirements. It provides a wide range of command line options and parameters that can be modified to optimize predictions. This level of control is beneficial for researchers who want to experiment with different settings or integrate AlphaFold2 into their existing computational pipelines.
 
 This course is aimed at researchers seeking to automate their use of AlphaFold. See the following pages for examples for how to use AlphaFold in different conditions and on different systems. Whilst these are targetted for Sydney University researchers, others may benefit from the general routines.
+
+## Citations
+
+If you use the AlphaFold code or data, please cite:
+
+@Article{AlphaFold2021,
+  author  = {Jumper, John and Evans, Richard and Pritzel, Alexander and Green, Tim and Figurnov, Michael and Ronneberger, Olaf and Tunyasuvunakool, Kathryn and Bates, Russ and {\v{Z}}{\'\i}dek, Augustin and Potapenko, Anna and Bridgland, Alex and Meyer, Clemens and Kohl, Simon A A and Ballard, Andrew J and Cowie, Andrew and Romera-Paredes, Bernardino and Nikolov, Stanislav and Jain, Rishub and Adler, Jonas and Back, Trevor and Petersen, Stig and Reiman, David and Clancy, Ellen and Zielinski, Michal and Steinegger, Martin and Pacholska, Michalina and Berghammer, Tamas and Bodenstein, Sebastian and Silver, David and Vinyals, Oriol and Senior, Andrew W and Kavukcuoglu, Koray and Kohli, Pushmeet and Hassabis, Demis},
+  journal = {Nature},
+  title   = {Highly accurate protein structure prediction with {AlphaFold}},
+  year    = {2021},
+  volume  = {596},
+  number  = {7873},
+  pages   = {583--589},
+  doi     = {10.1038/s41586-021-03819-2}
+}
+
+
     

@@ -5,8 +5,7 @@
 
 ### Questions
 
-- What can I do?
-- How do I do it?
+- How can I run AlphaFold on scalable infastrucure?
 </div>
 
 <div class="objectives">
@@ -17,39 +16,13 @@
 
 </div>
 
-```bash
-# I am a comment
-pwd
+If you find your workflows do not suit the queued environment of Gadi or Artemis, you may find creating your own computational stack to be most robust and adaptable.
 
-for i in $(seq 1 10); do echo $i;done
-```
+Sydney offers researchers access to the AWS cloud via [Ronin](https://sydneyuni.atlassian.net/wiki/spaces/RC/pages/1108967637/RONIN+Research+Cloud). This interface provides an interface for creating and configuirng virtual machines on-demand with as many computational resources as you need for your current workload. 
 
-<div class="challenge">
+Generally, you will start with a barebones virtual machine. You may then install AlphaFold and the corresponding databases as needed:
 
-### Challenge 
-
-This is a challenge question
-
-<details>
-<summary>Solution</summary>
-
-```bash
-
-#Declare the name of the function
-echo "Joy"
-
-```
-</details>
-</div>
+https://github.com/deepmind/alphafold/tree/main
 
 
-
-<div class="keypoints">
-
-### Key points
-
-- Key
-- Points
-- Here
-
-</div>
+https://aws.amazon.com/blogs/machine-learning/run-alphafold-v2-0-on-amazon-ec2/

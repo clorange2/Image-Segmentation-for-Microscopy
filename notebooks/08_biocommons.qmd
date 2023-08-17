@@ -5,51 +5,17 @@
 
 ### Questions
 
-- What can I do?
-- How do I do it?
+- What is the Australian Biocommons?
+- What is Galaxy Australia?
+- How do I use AlphaFold on Glaxy?
 </div>
 
 <div class="objectives">
   
-### Objectives
+## Biocommons
 
-- Learn the basic Unix commands
+The [Australian Biocommons](https://www.biocommons.org.au/) is a digital capability aimed at enhancing Australian research in its ability to understand the molecular basis of life across environmental, agricultural and biomedical science. 
 
-</div>
+[Galaxy Australia](https://usegalaxy.org.au/login/start?redirect=None) is an open, web-based platform for accessible, reproducible and transparent computational research.
 
-```bash
-# I am a comment
-pwd
-
-for i in $(seq 1 10); do echo $i;done
-```
-
-<div class="challenge">
-
-### Challenge 
-
-This is a challenge question
-
-<details>
-<summary>Solution</summary>
-
-```bash
-
-#Declare the name of the function
-echo "Joy"
-
-```
-</details>
-</div>
-
-
-
-<div class="keypoints">
-
-### Key points
-
-- Key
-- Points
-- Here
-
-</div>
+https://site.usegalaxy.org.au/request/alphafold
