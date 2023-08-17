@@ -16,7 +16,7 @@ To connect to Artemis HPC, and follow this lesson, you will need a **'terminal e
 If you use Linux, then chances are you already know your shell and how to use it. Basically, just open your preferred terminal program and off you go! An X-Window server (X11) may also be useful if you want to be able to use GUIs; again, if you're using Linux you probably have one, and if you don't have one, it's probably because you intentionally disabled it!
 
 Connection to Artemis can be made via ssh by issuing the following command on the shell:
-```
+```bash
 ssh -X <unikey>@hpc.sydney.edu.au
 ```
 

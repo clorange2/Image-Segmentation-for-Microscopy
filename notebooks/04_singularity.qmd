@@ -5,51 +5,15 @@
 
 ### Questions
 
-- What can I do?
-- How do I do it?
+- What is Docker?
+- What is Singularity?
+- How do I run AlphaFold in a container?
 </div>
 
-<div class="objectives">
-  
-### Objectives
+## Containers
 
-- Learn the basic Unix commands
+## AlphaFold with Docker
 
-</div>
+## AlphaFold with Singularity
 
-```bash
-# I am a comment
-pwd
-
-for i in $(seq 1 10); do echo $i;done
-```
-
-<div class="challenge">
-
-### Challenge 
-
-This is a challenge question
-
-<details>
-<summary>Solution</summary>
-
-```bash
-
-#Declare the name of the function
-echo "Joy"
-
-```
-</details>
-</div>
-
-
-
-<div class="keypoints">
-
-### Key points
-
-- Key
-- Points
-- Here
-
-</div>
+## AlphaFold with Singularity on Artemis (or anywhere)

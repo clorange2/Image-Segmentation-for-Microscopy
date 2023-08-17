@@ -19,32 +19,6 @@ The project will be built and rendered automatically (via github actions) at a U
 https://pages.github.sydney.edu.au/informatics/training.alphafold/
 ```
 
-### Themes, Aesthetic and Branding
 
-If you'd like to use a more generic and possibly neutral theme, go to the `_quarto.yaml` and change the format section to:
-
-```yaml
-format:
-  html:
-   toc: true
-   theme:
-      light: flatly
-      dark: darkly
-   css: styles.scss
-   code-link: true
-   code-fold: false
-```
-
-If you'd like to use the USYD Masterbrand Ochre, go to the `_quarto.yaml` and change the format section to:
-
-```yaml
-format:
-  html:
-    theme: simplex
-    css: [lesson.css, bootstrap-icons.css]
-    toc: true
-    code-overflow: wrap
-    highlight-style: github
-```
  
 
