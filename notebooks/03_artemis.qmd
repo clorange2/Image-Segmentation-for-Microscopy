@@ -25,7 +25,7 @@ If there is additional databases you require, please fill in a support ticket.
 
 Make a new file called `alpha_job.pbs`.
 
-```  
+```bash
 #!/bin/bash
 #PBS -P Training
 #PBS -l select=1:ncpus=4:mem=8gb:ngpus=0
