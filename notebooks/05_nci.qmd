@@ -5,51 +5,15 @@
 
 ### Questions
 
-- What can I do?
-- How do I do it?
+- How Can I Run AlphaFold on NCI?
 </div>
 
 <div class="objectives">
   
-### Objectives
 
-- Learn the basic Unix commands
+AlphaFold is availble on NCI's Gadi. This HPC is more than 10x larger than Artemis, so offers potentially far more significant resources.
 
-</div>
+Gadi uses a general architechure similar to Artemis so any workflows you have developed can be readily adapted to run on Gadi.
 
-```bash
-# I am a comment
-pwd
-
-for i in $(seq 1 10); do echo $i;done
-```
-
-<div class="challenge">
-
-### Challenge 
-
-This is a challenge question
-
-<details>
-<summary>Solution</summary>
-
-```bash
-
-#Declare the name of the function
-echo "Joy"
-
-```
-</details>
-</div>
-
-
-
-<div class="keypoints">
-
-### Key points
-
-- Key
-- Points
-- Here
-
-</div>
+AlphaFold is documented here:
+[https://opus.nci.org.au/display/Help/Colabfold](https://opus.nci.org.au/display/Help/Colabfold)
