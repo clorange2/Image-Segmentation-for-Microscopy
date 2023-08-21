@@ -19,3 +19,7 @@ The [Australian Biocommons](https://www.biocommons.org.au/) is a digital capabil
 [Galaxy Australia](https://usegalaxy.org.au/login/start?redirect=None) is an open, web-based platform for accessible, reproducible and transparent computational research.
 
 https://site.usegalaxy.org.au/request/alphafold
+
+
+In https://usegalaxy.org.au/ Navigate to ALphaFold.
+Fill in the form and click Run Tool!
