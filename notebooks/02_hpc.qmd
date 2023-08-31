@@ -1,13 +1,5 @@
 # Introduction to the High Performance Computing
 
-<div class="questions">
-
-### Questions
-
-- What is a HPC?
-- Why can't I run alphafold locally?
-</div>
-
 # What is the Artemis HPC?
 
 HPC stands for 'High Performance Computing', our local HPC is called "Artemis". You might colloquially refer to Artemis as a ‘supercomputer’. Technically, Artemis is a computing cluster, which is a whole lot of individual computers networked together. AS of 2023, Artemis consists of:
@@ -34,9 +26,11 @@ If you do use Artemis for your research, please acknowledge us! This ensures tha
 
 ## Getting an Artemis Account
 
-Get an Artemis account by creating a project with Artemis HPC access in [Researcher Dashboard (DashR)](https://dashr.sydney.edu.au/). 
+Get an Artemis account by creating a project with Artemis HPC access in [Researcher Dashboard (DashR)](https://dashr.sydney.edu.au/).
 
 Artemis is available free of charge to all University of Sydney researchers. You only need a unikey, and a valid Research Dashboard Research Data Management Plan with Artemis access enabled.
+
+During the course you can be issued with an account belonging to the *Training* project.
 
 ## Connecting to Artemis
 
@@ -44,12 +38,10 @@ Connections to Artemis are remote connections – you’ll never sit at one of A
 
 You can thus connect to Artemis from anywhere, requiring only a terminal emulator with an SSH client. (If you’re not on the USyd network (ie off-campus), you’ll also need to connect to the University’s VPN.
 
-If you followed the [Setup instructions](https://sydney-informatics-hub.github.io/training.alphafold/setup.html), then you should already have the required software installed. If not, please go do this now!
+If you followed the [Setup instructions](https://sydney-informatics-hub.github.io/training.alphafold/setup.html), then you should already have the required software installed. 
 
 Once you are set up with an ssh client, connect with your unikey credentials with:
 
 ```bash
 ssh abcd123@hpc.sydney.edu.au
 ```
-
-

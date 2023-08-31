@@ -1,19 +1,18 @@
 # Running AlphaFold on the Artemis HPC
 
-## How do I run AlphaFold on Artemis?
+## AlphaFold on Artemis
 
 AlphaFold can be accessed by executing
 ```bash
 module load alphafold
 ```
 
-There are several (large) required genetic databases and parameters AlphaFold requires. Different versions of these are conveniently available on Artemis in the common folder: `/project/data/alphafold2/`
+There are several (large) genetic databases and parameters AlphaFold requires. Different versions of these are conveniently available on Artemis in the common folder: `/project/data/alphafold2/`
 If there is additional databases you require, please fill in a [support ticket](https://sydneyuni.service-now.com/sm?id=sc_cat_item&sys_id=1ab0bb626d2935008dd31a4dcf150a21&sysparm_category=56db92a0db1f73042d38cae43a961918).
 
+To actually run a computationally intensive AlphaFold job, we must create a PBS *jobscript*, which is a standard shell script with a few PBS-specific directives, that is sent to the job scheduler for execution.
 
-To actually run a computationally intensive AlphaFold job, we must create a PBS "jobscript", which is a standard shell script with a few PBS-specific directives, that is sent to the job scheduler for execution.
-
-## Make a PBS Jobscript
+### Make a PBS Jobscript
 
 Make a new file called `alpha_job.pbs`.
 Execute `nano alpha_job.pbs` to edit a new text file in the `nano` text-editor. Make the changes then hit `cntrl+x` to exit the `nano` text-editor, save the changes as prompted.
@@ -32,7 +31,6 @@ The contents at a minimum, should look something like this.
 module load alphafold/2.2.0-gpu hmmer hh-suite kalign
 
 # Navigate to your directory
-#cd /project/Training/ALPHAFOLD
 cd $PBS_O_WORKDIR
 
 # Set a working directory
@@ -59,7 +57,9 @@ run_alphafold.py \
         --uniclust30_database_path=${ALPHADB}/uniclust30/uniclust30_2018_08/uniclust30_2018_08
 ```
 
-Now we can submit the job to the queue
+### Submit a PBS Jobscript to the queue
+
+Now we can submit the job to the scheduler
 ```bash
 qsub alpha_job.pbs
 ```
