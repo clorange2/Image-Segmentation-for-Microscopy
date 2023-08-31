@@ -1,22 +1,18 @@
 # Running AlphaFold with ColabFold on Google Colab
 
-<div class="questions">
+## What is ColabFold?
 
-### Questions
+[ColabFold](https://github.com/sokrypton/ColabFold) is a fork of AlphaFold specifically designed for running on Google Colab resources. It is instantly accessible via Google Colab, or you can run the modified workflow on your own resources.
 
-- What is Google Colab and ColabFold?
-- How do I run AlphaFold with ColabFold?
-- What are the limitations?
-</div>
+## What are the limitations of ColabFold?
+
+You cannot automate searches as robustly as on command-line. Google-Colab instances have time limits on them.
+
 
 ## What is Google Colab?
 
-[Google Colab](https://colab.google/) is an online Python Notebook platform. Notebooks powered by reasonable cpu, ram, and gpu resources are available freely, only requiring a Google account. 
+[Google Colab](https://colab.google/) is an online Python Notebook platform. Notebooks powered by reasonable CPU, RAM, and GPU resources are available freely, only requiring a Google account.
 You can run most Python packages and workflows within the Colab environment.
-
-## What is ColabFold?
-
-[ColabFold](https://github.com/sokrypton/ColabFold) is a fork of AlphaFold specifically designed for running on Google Colab resources. It is instantly accessible via Google Colab, or you can run the modified workflow on your own resources. 
 
 
 ## How do I run AlphaFold with ColabFold?
@@ -25,4 +21,3 @@ Go here and follow the instructions!
 https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb
 
 https://colab.research.google.com/github/deepmind/alphafold/blob/main/notebooks/AlphaFold.ipynb
-## What are the limitations?

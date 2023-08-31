@@ -1,28 +1,13 @@
 # Running AlphaFold on the the Sydney Research Cloud (Ronin AWS)
 
-
-<div class="questions">
-
-### Questions
-
-- How can I run AlphaFold on scalable infastrucure?
-</div>
-
-<div class="objectives">
-  
-### Objectives
-
-- Learn the basic Unix commands
-
-</div>
+## AWS
 
 If you find your workflows do not suit the queued environment of Gadi or Artemis, you may find creating your own computational stack to be most robust and adaptable.
 
-Sydney offers researchers access to the AWS cloud via [Ronin](https://sydneyuni.atlassian.net/wiki/spaces/RC/pages/1108967637/RONIN+Research+Cloud). This interface provides an interface for creating and configuirng virtual machines on-demand with as many computational resources as you need for your current workload. 
+Sydney offers researchers access to the AWS cloud via [Ronin](https://sydneyuni.atlassian.net/wiki/spaces/RC/pages/1108967637/RONIN+Research+Cloud). This interface allows creation and configuration of virtual machines on-demand with as many computational resources as you need for your current workload.
 
-Generally, you will start with a barebones virtual machine. You may then install AlphaFold and the corresponding databases as needed:
+Generally, you will start with a bare-bones virtual machine. You may then install AlphaFold and the corresponding databases as needed:
 
-https://github.com/deepmind/alphafold/tree/main
-
+https://github.com/deepmind/alphafold
 
 https://aws.amazon.com/blogs/machine-learning/run-alphafold-v2-0-on-amazon-ec2/

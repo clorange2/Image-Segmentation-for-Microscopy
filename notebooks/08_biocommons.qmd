@@ -1,25 +1,14 @@
 # Running AlphaFold on Biocommons Galaxy
 
+## Austrlalian Biocommons
 
-<div class="questions">
+The [Australian Biocommons](https://www.biocommons.org.au/) is a digital capability aimed at enhancing Australian research in its ability to understand the molecular basis of life across environmental, agricultural and biomedical science.
 
-### Questions
-
-- What is the Australian Biocommons?
-- What is Galaxy Australia?
-- How do I use AlphaFold on Glaxy?
-</div>
-
-<div class="objectives">
-  
-## Biocommons
-
-The [Australian Biocommons](https://www.biocommons.org.au/) is a digital capability aimed at enhancing Australian research in its ability to understand the molecular basis of life across environmental, agricultural and biomedical science. 
-
+## Galaxy Australia
 [Galaxy Australia](https://usegalaxy.org.au/login/start?redirect=None) is an open, web-based platform for accessible, reproducible and transparent computational research.
 
 https://site.usegalaxy.org.au/request/alphafold
 
-
+## AlphaFold on Galaxy
 In https://usegalaxy.org.au/ Navigate to ALphaFold.
 Fill in the form and click Run Tool!
