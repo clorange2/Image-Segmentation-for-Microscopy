@@ -21,9 +21,6 @@
 # sudo docker build -t sydneyinformaticshub/alphafold .
 # python -c "import tensorflow as tf; print(len(tf.config.list_physical_devices('GPU')))"
 #
-# Push with:
-# sudo docker push sydneyinformaticshub/alphafold
-#
 # Run with:
 # sudo docker run -it --gpus=all sydneyinformaticshub/alphafold /bin/bash -c "python /app/alphafold/alphafold-2.3.2/run_alphafold.py \
 #   --data_dir=${ALPHADB} \
@@ -49,18 +46,18 @@ FROM nbutter/pytorch:ubuntu1604
 
 # Install Miniconda package manager.
 RUN wget -q -P /tmp \
-  https://repo.anaconda.com/miniconda/Miniconda3-py38_23.5.2-0-Linux-x86_64.sh \
-    && bash /tmp/Miniconda3-py38_23.5.2-0-Linux-x86_64.sh -b -p /opt/conda \
-    && rm /tmp/Miniconda3-py38_23.5.2-0-Linux-x86_64.sh
+  https://repo.anaconda.com/miniconda/Miniconda3-py39_23.5.2-0-Linux-x86_64.sh \
+    && bash /tmp/Miniconda3-py39_23.5.2-0-Linux-x86_64.sh -b -p /opt/conda \
+    && rm /tmp/Miniconda3-py39_23.5.2-0-Linux-x86_64.sh
 
 # Install conda/pip packages.
 ENV PATH="/opt/conda/bin:$PATH"
 
 RUN conda install -y pip
-RUN conda install -c conda-forge python=3.8 openmm==7.5.0 cudatoolkit==10.2.89 pdbfixer -y
+RUN conda install -c conda-forge python=3.9 cudnn==8.4 openmm==7.5.0 cudatoolkit==10.2.89 pdbfixer -y
 RUN conda install -c conda-forge -c bioconda kalign2=2.04 hhsuite=3.3.0 mmseqs2=14.7e284 -y
-RUN pip install --no-warn-conflicts "colabfold[alphafold-minus-jax] @ git+https://github.com/sokrypton/ColabFold@b95214bd97e3e55aa73fafbc5eacdf19abccebe6" tensorflow
-RUN pip install https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp38-none-manylinux2010_x86_64.whl
+RUN pip install --no-warn-conflicts "colabfold[alphafold-minus-jax] @ git+https://github.com/sokrypton/ColabFold" tensorflow==2.3
+RUN pip install https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp39-none-manylinux2010_x86_64.whl
 RUN pip install jax==0.1.71 chex biopython
 
 # Use 'Agg' for non-GUI backend
