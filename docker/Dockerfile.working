@@ -19,10 +19,6 @@
 #
 # Build with:
 # sudo docker build -t sydneyinformaticshub/alphafold .
-# python -c "import tensorflow as tf; print(len(tf.config.list_physical_devices('GPU')))"
-#
-# Push with:
-# sudo docker push sydneyinformaticshub/alphafold
 #
 # Run with:
 # sudo docker run -it --gpus=all sydneyinformaticshub/alphafold /bin/bash -c "python /app/alphafold/alphafold-2.3.2/run_alphafold.py \
@@ -41,11 +37,40 @@
 #   --bfd_database_path=${ALPHADB}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
 #   --uniref30_database_path=${ALPHADB}/uniclust30/uniclust30_2018_08/uniclust30_2018_0 \
 #  "
-# export SINGULARITY_CACHEDIR=`pwd`
-# export SINGULARITY_TMPDIR=`pwd`
-# singularity build alpha.img docker://sydneyinformaticshub/alphafold
 
+ARG CUDA=10.2
 FROM nbutter/pytorch:ubuntu1604
+# FROM directive resets ARGS, so we specify again (the value is retained if
+# previously set).
+ARG CUDA
+
+# Use bash to support string substitution.
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        build-essential \
+        cmake \
+        cuda-command-line-tools-$(cut -f1,2 -d- <<< ${CUDA//./-}) \
+        git \
+        hmmer \
+        kalign \
+        tzdata \
+        wget \
+        unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get autoremove -y \
+    && apt-get clean
+
+# Compile HHsuite from source.
+RUN git clone --branch v3.3.0 https://github.com/soedinglab/hh-suite.git /tmp/hh-suite \
+    && mkdir /tmp/hh-suite/build \
+    && pushd /tmp/hh-suite/build \
+    && cmake -DCMAKE_INSTALL_PREFIX=/opt/hhsuite .. \
+    && make -j && make install \
+    && ln -s /opt/hhsuite/bin/* /usr/bin \
+    && popd \
+    && rm -rf /tmp/hh-suite
 
 # Install Miniconda package manager.
 RUN wget -q -P /tmp \
@@ -56,18 +81,21 @@ RUN wget -q -P /tmp \
 # Install conda/pip packages.
 ENV PATH="/opt/conda/bin:$PATH"
 
-RUN conda install -y pip
-RUN conda install -c conda-forge python=3.8 openmm==7.5.0 cudatoolkit==10.2.89 pdbfixer -y
-RUN conda install -c conda-forge -c bioconda kalign2=2.04 hhsuite=3.3.0 mmseqs2=14.7e284 -y
-RUN pip install --no-warn-conflicts "colabfold[alphafold-minus-jax] @ git+https://github.com/sokrypton/ColabFold@b95214bd97e3e55aa73fafbc5eacdf19abccebe6" tensorflow
-RUN pip install https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp38-none-manylinux2010_x86_64.whl
-RUN pip install jax==0.1.71 chex biopython
-RUN python -m colabfold.download 
+RUN conda install -y -c conda-forge libgcc
+RUN conda install -y -c anaconda libstdcxx-ng
+RUN conda install -y -c conda-forge pdbfixer pip
+RUN conda install -y -c conda-forge openmm==7.5.0 cudatoolkit==10.2.89
+RUN pip install absl-py==1.0.0 biopython==1.79 chex==0.0.7 dm-haiku==0.0.9 dm-tree==0.1.6 immutabledict jax==0.1.71 ml-collections==0.1.0 numpy==1.21.6 pandas==1.3.4 protobuf==3.20.1 scipy==1.7.0 tensorflow-cpu==2.9.0
+RUN pip install --upgrade --no-cache-dir "jax[cuda102]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+RUN pip install mock
 
-# Use 'Agg' for non-GUI backend
-# cd ${COLABFOLDDIR}/colabfold-conda/lib/python3.10/site-packages/colabfold
-# sed -i -e "s#from matplotlib import pyplot as plt#import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot as plt#g" plot.py
-# modify the default params directory
-# sed -i -e "s#appdirs.user_cache_dir(__package__ or \"colabfold\")#\"${COLABFOLDDIR}/colabfold\"#g" download.py
-# remove cache directory
-# rm -rf __pycache__
+RUN mkdir -p /app && cd /app && wget https://github.com/deepmind/alphafold/archive/refs/tags/v2.2.0.zip && unzip v2.2.0.zip -d /app/alphafold
+RUN mkdir -p /app && cd /app && wget https://github.com/deepmind/alphafold/archive/refs/tags/v2.3.2.zip && unzip v2.3.2.zip -d /app/alphafold
+
+# Add SETUID bit to the ldconfig binary so that non-root users can run it.
+RUN chmod u+s /sbin/ldconfig.real
+
+WORKDIR /app/alphafold
+
+# Add Artemis HPC folders. !! Already inherited from nbutter/pytorch !!
+# RUN mkdir /project /scratch && touch /usr/bin/nvidia-smi
