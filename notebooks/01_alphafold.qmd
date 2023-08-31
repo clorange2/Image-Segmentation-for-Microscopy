@@ -46,8 +46,8 @@ Sequence Data: The following lines contain the actual sequence data, which can b
 
 Fro example:
 
-    ```
-    >MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken
+```
+>MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken
 MADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID
 FPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA
 DIDGDGQVNYEEFVQMMTAK*
@@ -55,6 +55,24 @@ DIDGDGQVNYEEFVQMMTAK*
 
 FASTA files are easy to read by both humans and computers, making them a standard format for sharing and storing biological sequence information. They are used in various bioinformatics applications, including sequence analysis, sequence alignment, database searches, and data exchange between different software tools and databases.
 
+
+## Use cases
+
+* Protein Structure Prediction: Understanding the 3D structure of proteins is crucial because a protein's function is intricately linked to its shape. By accurately predicting protein structures, researchers can gain insights into their functions, interactions, and potential roles in various biological processes.
+
+* Drug Discovery: Many diseases are caused by malfunctioning proteins. With accurate protein structure predictions, researchers can identify potential drug targets and design molecules that specifically interact with the target protein, leading to the development of new drugs and therapies.
+
+* Biological Research: AlphaFold aids researchers in studying the underlying mechanisms of biological processes. Protein structures provide insights into how proteins function, interact with other molecules, and carry out their roles in cells.
+
+* Disease Understanding: Knowing the structures of proteins associated with diseases helps researchers understand how these proteins contribute to the disease's development. This understanding can pave the way for novel therapeutic approaches.
+
+* Engineering and Design: AlphaFold can assist in protein engineering by designing proteins with specific functions or properties, such as creating enzymes with improved catalytic activities or generating novel protein structures for industrial applications.
+
+* Bioinformatics and Data Interpretation: AlphaFold's predictions can complement experimental data, helping researchers interpret experimental results and guiding further experiments. It can provide structural context to help explain biochemical and genetic observations.
+
+* Functional Annotations: Predicting protein structures can aid in annotating the functions of newly sequenced genes and proteins, especially when experimental data is limited.
+
+* Reducing Experimental Costs: Determining protein structures experimentally using methods like X-ray crystallography or nuclear magnetic resonance (NMR) can be time-consuming and expensive. AlphaFold's predictions can provide a cost-effective alternative to obtaining initial structural information.
 
 ## Citations
 
