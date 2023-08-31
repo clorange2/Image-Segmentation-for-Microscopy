@@ -1,31 +1,23 @@
 # Running AlphaFold on the Artemis HPC
 
-
-<div class="questions">
-
-### Questions
-
-- How do I run AlphaFold on Artemis?
-- How can I modify a template AlphaFold job?
-</div>
-
-
-# How do I run AlphaFold on Artemis?
+## How do I run AlphaFold on Artemis?
 
 AlphaFold can be accessed by executing
 ```bash
 module load alphafold
 ```
 
-There are several (large) required genetic databases and parameters AlphaFold requires. Different versions of these are conviently available on Artemis in the common folder: `/project/data/alphafold2/` 
+There are several (large) required genetic databases and parameters AlphaFold requires. Different versions of these are conveniently available on Artemis in the common folder: `/project/data/alphafold2/`
 If there is additional databases you require, please fill in a [support ticket](https://sydneyuni.service-now.com/sm?id=sc_cat_item&sys_id=1ab0bb626d2935008dd31a4dcf150a21&sysparm_category=56db92a0db1f73042d38cae43a961918).
 
 
-To actually run a computationally intensive AlphaFold job, we must create a PBS "jobscript", which is a standard shell script with a few PBS-specific directives, that is sent to the job scheduler for execution. 
+To actually run a computationally intensive AlphaFold job, we must create a PBS "jobscript", which is a standard shell script with a few PBS-specific directives, that is sent to the job scheduler for execution.
 
 ## Make a PBS Jobscript
 
 Make a new file called `alpha_job.pbs`.
+Execute `nano alpha_job.pbs` to edit a new text file in the `nano` text-editor. Make the changes then hit `cntrl+x` to exit the `nano` text-editor, save the changes as prompted.
+
 The contents at a minimum, should look something like this.
 
 ```bash
@@ -37,9 +29,9 @@ The contents at a minimum, should look something like this.
 #PBS -N job01_gpu
 
 # Load necessary modules (on Artemis, this will load the correct python environment with AlphaFold installed)
-module load alphafold hmmer hh-suite kalign
+module load alphafold/2.2.0-gpu hmmer hh-suite kalign
 
-# Navigate to your directory 
+# Navigate to your directory
 #cd /project/Training/ALPHAFOLD
 cd $PBS_O_WORKDIR
 
@@ -72,12 +64,10 @@ Now we can submit the job to the queue
 qsub alpha_job.pbs
 ```
 
-This will execute when compute resources become availble. Check the status with: 
+This will execute when compute resources become available. Check the status with:
 
 ```bash
 qstat -x -u <unikey>
 ```
 
-You will see most requirments are on Artemis already, but you must bring your own `.fasta` file.
-
-
+You will see most requirements are on Artemis already, but you must bring your own `.fasta` file.
