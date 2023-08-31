@@ -33,6 +33,29 @@ It is customisable and allows researchers to fine-tune the prediction process ac
 
 This course is aimed at researchers seeking to automate their use of AlphaFold. See the following pages for examples for how to use AlphaFold in different conditions and on different systems. Whilst these are targeted for Sydney University researchers, others may benefit from the general routines.
 
+
+## FASTA Format
+
+AlphaFold is mostly driven by the use of [FASTA files](https://en.wikipedia.org/wiki/FASTA_format).
+
+A FASTA (pronounced "fast-ay") file is a common plain text format used to store biological sequence data, such as DNA, RNA, or protein sequences. It is named after the FASTA software package, which originally introduced this format. FASTA files consist of two main components:
+
+Header: The header line begins with a ">" symbol, followed by a unique identifier for the sequence. This identifier can contain information about the sequence, like its source or other relevant details.
+
+Sequence Data: The following lines contain the actual sequence data, which can be composed of letters representing nucleotides (A, T, C, G, U) for DNA, RNA sequences or amino acids (A, R, N, etc.) for protein sequences.
+
+Fro example:
+
+    ```
+    >MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken
+MADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID
+FPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA
+DIDGDGQVNYEEFVQMMTAK*
+```
+
+FASTA files are easy to read by both humans and computers, making them a standard format for sharing and storing biological sequence information. They are used in various bioinformatics applications, including sequence analysis, sequence alignment, database searches, and data exchange between different software tools and databases.
+
+
 ## Citations
 
 If you use the AlphaFold code or data, please cite:
