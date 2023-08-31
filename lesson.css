@@ -618,6 +618,7 @@ div.error {
 }
  .footertext {
 	 text-align: center;
+	 font-size: 14px;
 }
  footer .license, footer .help-links {
 	 font-size: inherit;
