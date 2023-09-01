@@ -7,20 +7,14 @@ output:
 ---
 
 
-This is a training course aimed at users wishing to use High Performance Computing and Cloud environments to learn [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2). AlphaFold performs predictions of protein structure.
+This is a training course aimed at users wanting to learn about [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2) to perform predictions of protein structures. Beyond an introduction to the capabilities of AlphaFold, topics will cover different techincal approaches to run AlphaFold including using High Performance Computing and Cloud environments.
 
 
 ## Trainers
 
-Have a list of the people delivering the course if it is needed. 
-However, this is subject to change so might be a good idea to not specifiy.
-
-Here's an example list.
-This is a good place to define what your preferred name is if you have one.
-
 * Christopher Le
-* Jake Chen
-* Nathaniel (Nate) Butterworth
+* [Jake Chen](https://www.sydney.edu.au/medicine-health/about/our-people/research-students/jake-chen-301.html) FMH
+* [Nathaniel Butterworth](https://www.sydney.edu.au/research/facilities/sydney-informatics-hub/our-staff.html) SIH
 
 
 ## Course pre-requisites and setup requirements
@@ -30,8 +24,7 @@ No previous programming experience is required, this training course will introd
 
 ## Venue
 
-TBD, online?
-In almost all cases, our courses are delivered from Sydney and times are reported in AEST (GMT+10).
+Online via Zoom, a link will be shared with registered participants.
 
 #### Zoom etiquette and how we interact
 
@@ -41,9 +34,9 @@ Sessions will be recorded and added to this page. Please interrupt whenever you 
 ## Code of Conduct
 
 As a University of Sydney course, we also want to make sure peopele are aware of our code of conduct.
-Feel free to move this to an about page as needed. 
+Feel free to move this to an about page as needed.
 
-Example standard Code of Conduct statement: 
+Example standard Code of Conduct statement:
 
 We expect all attendees of our training to follow our code of conduct, including bullying, harassment and discrimination prevention policies.
 
@@ -66,15 +59,15 @@ With quarto we can make tables using markdown formating, like below.
 
 |  |  |
 | --- | :--- |
-| **Intro** |
+| **In-depth** |
 |   | [Intro to AlphaFold](notebooks/01_alphafold.qmd) |
+|   | [ColabFold](notebooks/07_colabfold.qmd) |
 |   | [Intro to HPC](notebooks/02_hpc.qmd) |
 |   | [Artemis Example](notebooks/03_artemis.qmd) |
-| **Advanced** |
+| **Optional Topics** |
 |   | [Singularity Example](notebooks/04_singularity.qmd) |
 |   | [NCI Example](notebooks/05_nci.qmd) |
 |   | [Ronin Research Cloud (AWS) Example](notebooks/06_aws.qmd) |
-|   | [ColabFold](notebooks/07_colabfold.qmd) |
 |   | [Biocommons Example](notebooks/08_biocommons.qmd) |
 
 
