@@ -10,10 +10,13 @@ output:
 
 We will be utilising [Google Colab](https://colab.research.google.com/), you will need a google account to use this service.
 
+<br>
+
 
 # 2. Get a shell terminal emulator
 
 To connect to Artemis HPC, and follow this lesson, you will need a **'terminal emulator'** program installed on your computer. Often just called a 'terminal', or 'shell terminal', 'shell client', terminal emulators give you a window with a _command line interface_ through which you can send commands to be executed by your computer.
+
 
 ## A. Linux systems
 
@@ -23,6 +26,7 @@ Connection to Artemis can be made via ssh by issuing the following command on th
 ```bash
 ssh -X <unikey>@hpc.sydney.edu.au
 ```
+
 
 ## B. OSX (Mac computers and laptops)
 
@@ -36,15 +40,17 @@ Mac operating systems come with a terminal program, called Terminal. Just look f
 We also recommend installing [XQuartz](https://www.xquartz.org/), which will replace OSX's native X-Window server. XQuartz has some extra features that may offer better performance when using GUI programs. You'll need to log out and back in again after installing XQuartz in order for it to activate.
 
 Connection to Artemis can be made via ssh by issuing the following command in the terminal:
-```
+```bash
 ssh -X <unikey>@hpc.sydney.edu.au
 ```
+
 
 ## C. Windows
 
 Windows has a couple of terminal programs and shells buried in the Programs menu (`cmd`, `powershell`). However, those aren't going to work for us, as you'll need extra programs and utilities to connect to Artemis, such as an _SSH_ implementation. To use Artemis on Windows, you have a couple of options:
 
-### i. PuTTY (Easy)
+
+### Option i. PuTTY (Easy)
 
 PuTTY, an SSH and telnet client, is a good simple option.
 
@@ -57,11 +63,12 @@ Head to the [PuTTY Website](https://putty.org) and download PuTTY. You can insta
 
    <img src="./fig/placeholder.png" style="margin:10px;height:400px" >
 
-2. Name this session **"Artemis"** and click 'Save'
+3. Name this session **"Artemis"** and click 'Save'
 
 Note that PuTTY does not provide an X11 server natievly, so you won't be able to use GUI programs on Artemis with _just_ PuTTY. You can optionally install [VcXsrv](https://sourceforge.net/projects/vcxsrv/) or similar to enable X-11 forwarding).
 
-### ii. WSL and Ubuntu (Advanced)
+
+### Option ii. WSL and Ubuntu (Advanced)
 
 Install Ubuntu or some other Linux distro on the Windows Subsystem for Linux see [here for details](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview). This one will give you the full suite of Linux functions.
 
