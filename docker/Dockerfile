@@ -62,8 +62,8 @@ RUN conda install -c conda-forge -c bioconda kalign2=2.04 hhsuite=3.3.0 mmseqs2=
 RUN pip install --no-warn-conflicts "colabfold[alphafold-minus-jax] @ git+https://github.com/sokrypton/ColabFold@b95214bd97e3e55aa73fafbc5eacdf19abccebe6" tensorflow
 RUN pip install https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp38-none-manylinux2010_x86_64.whl
 RUN pip install jax==0.1.71 chex biopython
-RUN python -m colabfold.download 
-
+RUN python -m colabfold.download
+RUN pip install -U jax==0.3.25
 # Use 'Agg' for non-GUI backend
 # cd ${COLABFOLDDIR}/colabfold-conda/lib/python3.10/site-packages/colabfold
 # sed -i -e "s#from matplotlib import pyplot as plt#import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot as plt#g" plot.py

@@ -6,14 +6,18 @@ output:
     toc_float: false
 ---
 
+# 1. Get a Google Account.
 
-# 1. Get a shell terminal emulator
+We will be utilising [Google Colab](https://colab.research.google.com/), you will need a google account to use this service.
+
+
+# 2. Get a shell terminal emulator
 
 To connect to Artemis HPC, and follow this lesson, you will need a **'terminal emulator'** program installed on your computer. Often just called a 'terminal', or 'shell terminal', 'shell client', terminal emulators give you a window with a _command line interface_ through which you can send commands to be executed by your computer.
 
 ## A. Linux systems
 
-If you use Linux, then chances are you already know your shell and how to use it. Basically, just open your preferred terminal program and off you go! An X-Window server (X11) may also be useful if you want to be able to use GUIs; again, if you're using Linux you probably have one, and if you don't have one, it's probably because you intentionally disabled it!
+If you use Linux, then chances are you already have a shell. Open your preferred terminal program and off you go! An X-Window server (X11) may also be useful if you want to be able to use GUIs.
 
 Connection to Artemis can be made via ssh by issuing the following command on the shell:
 ```bash
@@ -38,22 +42,24 @@ ssh -X <unikey>@hpc.sydney.edu.au
 
 ## C. Windows
 
-If you're using a Windows machine, don't panic! You might not have used 'CMD' since Windows 95 but, rest assured, Windows still has a couple of terminal programs and shells buried in the Programs menu. However, those aren't going to work for us, as you'll need extra programs and utilities to connect to Artemis, such as an _SSH_ implementation. To use Artemis on Windows, you have a couple of options:
+Windows has a couple of terminal programs and shells buried in the Programs menu (`cmd`, `powershell`). However, those aren't going to work for us, as you'll need extra programs and utilities to connect to Artemis, such as an _SSH_ implementation. To use Artemis on Windows, you have a couple of options:
 
 ### i. PuTTY (Easy)
 
-PuTTY, an SSH and telnet client, is another good simple option. However, note that PuTTY **does not** provide an X11 server, so you won't be able to use GUI programs on Artemis with _just_ PuTTY.
+PuTTY, an SSH and telnet client, is a good simple option.
 
 Head to the [PuTTY Website](https://putty.org) and download PuTTY. You can install it to your computer, or just download the 'binary' and run it directly. Create a new session for use with Artemis as follows:
 
 1. Fill in the connection details:
   - Host Name: **hpc.sydney.edu.au**
   - Port: **22**
-  - Connection type: **SSH**   
+  - Connection type: **SSH**
 
    <img src="./fig/placeholder.png" style="margin:10px;height:400px" >
 
 2. Name this session **"Artemis"** and click 'Save'
+
+Note that PuTTY does not provide an X11 server natievly, so you won't be able to use GUI programs on Artemis with _just_ PuTTY. You can optionally install [VcXsrv](https://sourceforge.net/projects/vcxsrv/) or similar to enable X-11 forwarding).
 
 ### ii. WSL and Ubuntu (Advanced)
 
