@@ -74,7 +74,7 @@ Install Ubuntu or some other Linux distro on the Windows Subsystem for Linux see
 
 <br>
 
-# 2. Off-campus access
+# 3. Off-campus access
 
 If you're attempting this training by yourself, or following on **[Zoom](https://uni-sydney.zoom.us/)**, __off-campus__ then you'll need to connect to the Sydney internet network __before__ you can connect to Artemis.
 
