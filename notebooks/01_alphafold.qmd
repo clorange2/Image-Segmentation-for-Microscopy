@@ -60,19 +60,50 @@ FASTA files are easy to read by both humans and computers, making them a standar
 
 * Protein Structure Prediction: Understanding the 3D structure of proteins is crucial because a protein's function is intricately linked to its shape. By accurately predicting protein structures, researchers can gain insights into their functions, interactions, and potential roles in various biological processes.
 
-* Drug Discovery: Many diseases are caused by malfunctioning proteins. With accurate protein structure predictions, researchers can identify potential drug targets and design molecules that specifically interact with the target protein, leading to the development of new drugs and therapies.
+```bash
+run_alphafold.py input.fasta ...
+```
+At it's core, AlphaFold needs a FASTA file to make predictions.
 
-* Biological Research: AlphaFold aids researchers in studying the underlying mechanisms of biological processes. Protein structures provide insights into how proteins function, interact with other molecules, and carry out their roles in cells.
 
-* Disease Understanding: Knowing the structures of proteins associated with diseases helps researchers understand how these proteins contribute to the disease's development. This understanding can pave the way for novel therapeutic approaches.
+* Drug Discovery: Many diseases are caused by malfunctioning proteins. Interpreting the accurate protein structure predictions, researchers can identify potential drug targets and design molecules that specifically interact with the target protein, leading to the development of new drugs and therapies.
+
+* Biological Research: AlphaFold aids researchers in studying the underlying mechanisms of biological processes. Protein structures provide insights into how proteins function, interact with other molecules, and carry out their roles in cells. One may use the predicted protein structures as input for docking simulations to study protein-protein interactions, for example:
+
+```bash
+rosetta_scripts -s receptor.pdb -l ligand.pdb -parser:protocol docking.xml -score:weights ref15.wts
+```
+
+Where `receptor.pdb` is the AlphaFold output, `ligand.pdb` is the ligand structure, and `docking.xml` is a RosettaScripts protocol file for docking simulations.
+
+* Disease Understanding: Knowing the structures of proteins associated with diseases helps researchers understand how these proteins contribute to the disease's development. This understanding can pave the way for novel therapeutic approaches where you may use predicted structures in molecular dynamics simulations to understand how mutations affect protein stability:
+
+```bash
+gromacs grompp -f md.mdp -c input.gro -p topol.top -o md.tpr
+gromacs mdrun -v -deffnm md
+```
+Where `md.mdp` is the *GROMACS* configuration file, `input.gro` is the structure predicted by AlphaFold, and `topol.top` is the topology file.
 
 * Engineering and Design: AlphaFold can assist in protein engineering by designing proteins with specific functions or properties, such as creating enzymes with improved catalytic activities or generating novel protein structures for industrial applications.
 
-* Bioinformatics and Data Interpretation: AlphaFold's predictions can complement experimental data, helping researchers interpret experimental results and guiding further experiments. It can provide structural context to help explain biochemical and genetic observations.
+```bash
+rosetta_scripts -s starting_structure.pdb -parser:protocol design.xml -score:weights ref15.wts
+```
+
+Where `starting_structure.pdb` is the input structure from AlphaFold, `design.xml` is a *RosettaScripts* protocol file for design, and `ref15.wts` are the scoring weights.
+
+* Bioinformatics and Data Interpretation: AlphaFold's predictions can complement experimental data, helping researchers interpret experimental results and guiding further experiments. It can provide structural context to help explain biochemical and genetic observations, and predictions may integrated into analysis pipelines.
 
 * Functional Annotations: Predicting protein structures can aid in annotating the functions of newly sequenced genes and proteins, especially when experimental data is limited.
+One can compare AlphaFold predictions to known protein structures and functions using tools like BLAST or Pfam:
 
-* Reducing Experimental Costs: Determining protein structures experimentally using methods like X-ray crystallography or nuclear magnetic resonance (NMR) can be time-consuming and expensive. AlphaFold's predictions can provide a cost-effective alternative to obtaining initial structural information.
+```bash
+blastp -query query.fasta -db nr -out results.txt -evalue 1e-5 -outfmt 6
+```
+Where `query.fasta` is your *FASTA* sequence, and `nr` is the *BLAST* database.
+
+
+* Reducing Experimental Costs: Determining protein structures experimentally using methods like X-ray crystallography or nuclear magnetic resonance (NMR) can be time-consuming and expensive. AlphaFold's predictions can provide a cost-effective alternative to obtaining initial structural information and prioritising which proteins to study experimentally.
 
 ## Citations
 
