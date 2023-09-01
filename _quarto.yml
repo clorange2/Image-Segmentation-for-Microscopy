@@ -15,6 +15,8 @@ website:
         menu:
         - text: "Introduction to AlphaFold"
           href: notebooks/01_alphafold.html
+        - text: "Running AlphaFold on Google Colab"
+          href: notebooks/07_colabfold.html
         - text: "Introduction to HPC"
           href: notebooks/02_hpc.html
         - text: "Running AlphaFold on Artemis"
@@ -25,8 +27,6 @@ website:
           href: notebooks/05_nci.html
         - text: "Running AlphaFold on Cloud"
           href: notebooks/06_aws.html
-        - text: "Running AlphaFold on Google Colab"
-          href: notebooks/07_colabfold.html
         - text: "Running AlphaFold on Biocommons Galaxy"
           href: notebooks/08_biocommons.qmd
 
