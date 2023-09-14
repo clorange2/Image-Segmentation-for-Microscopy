@@ -33,7 +33,7 @@ ssh -X <unikey>@hpc.sydney.edu.au
 Mac operating systems come with a terminal program, called Terminal. Just look for it in your Applications folder, or hit Command-Space and type 'terminal'.
 
 <figure>
-  <img src="./fig/placeholder.png" style="margin:10px;height:400px" >
+  <img src="./fig/fig-setup_macos.png" style="margin:10px;height:400px" >
   <figcaption> <b>Terminal</b> is OSX's native terminal emulator.</figcaption>
 </figure><br>
 
@@ -61,7 +61,7 @@ Head to the [PuTTY Website](https://putty.org) and download PuTTY. You can insta
   - Port: **22**
   - Connection type: **SSH**
 
-   <img src="./fig/placeholder.png" style="margin:10px;height:400px" >
+   <img src="./fig/fig-setup_putty.png" style="margin:10px;height:400px" >
 
 3. Name this session **"Artemis"** and click 'Save'
 
