@@ -43,5 +43,5 @@ If you followed the [Setup instructions](https://sydney-informatics-hub.github.i
 Once you are set up with an ssh client, connect with your unikey credentials with:
 
 ```bash
-ssh abcd123@hpc.sydney.edu.au
+ssh -x <unikey>@hpc.sydney.edu.au
 ```
