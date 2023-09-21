@@ -58,8 +58,9 @@ ENV PATH="/opt/conda/bin:$PATH"
 
 RUN conda install -y pip
 
-# Version 1.2.0
+# Version 1.3.0, April 12 2022
 # https://github.com/YoshitakaMo/localcolabfold/tree/0ad333ffa24a9896361a54d8d2e18a493ec68184
+# This is 1.3.0 of colabfold https://github.com/sokrypton/ColabFold/tree/e765392222cec34e201261bfa10ad528a7553800
 ENV COLABFOLDDIR="/opt/colabfold"
 
 WORKDIR ${COLABFOLDDIR}
@@ -72,12 +73,12 @@ RUN conda install -c conda-forge openmm==7.5.0 -y
 RUN conda install -c conda-forge pdbfixer==1.7 -y
 
 # Apply OpenMM patch.
-RUN wget -qnc https://raw.githubusercontent.com/deepmind/alphafold/main/docker/openmm.patch --no-check-certificate && \
+RUN wget -qnc https://raw.githubusercontent.com/deepmind/alphafold/918434f597c0f8a7bd999f878de474aeb0a0b4ae/docker/openmm.patch --no-check-certificate && \
  cd /opt/conda/lib/python3.7/site-packages && patch -s -p0 < ${COLABFOLDDIR}/openmm.patch && \
  rm ${COLABFOLDDIR}/openmm.patch
 
 RUN conda install -c conda-forge -c bioconda kalign3=3.2.2 hhsuite=3.3.0 -y
-RUN pip install "colabfold[alphafold] @ git+https://github.com/sokrypton/ColabFold"
+RUN pip install "colabfold[alphafold] @ git+https://github.com/sokrypton/ColabFold@e765392222cec34e201261bfa10ad528a7553800"
 RUN pip install -U https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp37-none-manylinux2010_x86_64.whl
 RUN pip install jax==0.2.25
 
@@ -103,3 +104,6 @@ sed -i -e 's/CPU/CUDA/g' amber_minimize.py
 # Use 'Agg' for non-GUI backend
 RUN cd /opt/conda/lib/python3.7/site-packages/colabfold && \
 sed -i -e "s#from matplotlib import pyplot as plt#import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot as plt#g" plot.py
+
+RUN mkdir -p /usr/local/nvidia/lib && \
+  ln -s /usr/local/cuda/compat/libcuda.so /usr/local/nvidia/lib/libcuda.so.1
