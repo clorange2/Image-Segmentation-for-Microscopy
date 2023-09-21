@@ -8,7 +8,7 @@ Gadi is more than 10x larger than Artemis, so offers potentially far more signif
 Gadi uses a general architecture similar to Artemis so any workflows you have developed can be readily adapted to run on Gadi.
 
 Usage and example PBS jobscripts for AlphaFold are well-documented here:
-[https://opus.nci.org.au/display/Help/Colabfold](https://opus.nci.org.au/display/Help/Colabfold)
+[NCI Help - Colabfold](https://opus.nci.org.au/display/Help/Colabfold)
 
 You may also shift your Singularity images and workflows to Gadi.
 
