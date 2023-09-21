@@ -12,4 +12,7 @@ Usage and example PBS jobscripts for AlphaFold are well-documented here:
 
 You may also shift your Singularity images and workflows to Gadi.
 
-For access to NCI, see [https://nci.org.au/users/how-access-nci](https://nci.org.au/users/how-access-nci) or contact sih.info@sydney.edu.au 
+For access to NCI, see [https://nci.org.au/users/how-access-nci](https://nci.org.au/users/how-access-nci) or contact sih.info@sydney.edu.au
+
+Once you have an account you will need to join the "Colab Fold Project - *if89: Australia BioCommons Tools and Workflows*".
+To request access to this project visit: [https://my.nci.org.au/mancini/project/if89](https://my.nci.org.au/mancini/project/if89)

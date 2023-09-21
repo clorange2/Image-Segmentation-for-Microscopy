@@ -47,23 +47,96 @@
 
 FROM nbutter/pytorch:ubuntu1604
 
-# Install Miniconda package manager.
 RUN wget -q -P /tmp \
-  https://repo.anaconda.com/miniconda/Miniconda3-py38_23.5.2-0-Linux-x86_64.sh \
-    && bash /tmp/Miniconda3-py38_23.5.2-0-Linux-x86_64.sh -b -p /opt/conda \
-    && rm /tmp/Miniconda3-py38_23.5.2-0-Linux-x86_64.sh
+  https://repo.anaconda.com/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh \
+    && bash /tmp/Miniconda3-py37_4.10.3-Linux-x86_64.sh -b -p /opt/conda \
+    && rm /tmp/Miniconda3-py37_4.10.3-Linux-x86_64.sh
 
-# Install conda/pip packages.
+# There is another version of conda in the base image, remove it.
+RUN rm -rf /build/miniconda3
 ENV PATH="/opt/conda/bin:$PATH"
+RUN which conda
 
 RUN conda install -y pip
-RUN conda install -c conda-forge python=3.8 openmm==7.5.0 cudatoolkit==10.2.89 pdbfixer -y
-RUN conda install -c conda-forge -c bioconda kalign2=2.04 hhsuite=3.3.0 mmseqs2=14.7e284 -y
-RUN pip install --no-warn-conflicts "colabfold[alphafold-minus-jax] @ git+https://github.com/sokrypton/ColabFold@b95214bd97e3e55aa73fafbc5eacdf19abccebe6" tensorflow
-RUN pip install https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp38-none-manylinux2010_x86_64.whl
-RUN pip install jax==0.1.71 chex biopython
-RUN python -m colabfold.download
-RUN pip install -U jax==0.3.25
+
+ARG GIT_REPO="https://github.com/deepmind/alphafold"
+ARG SOURCE_URL="https://storage.googleapis.com/alphafold/alphafold_params_2021-07-14.tar"
+ENV COLABFOLDDIR="/opt/colabfold"
+ARG PARAMS_DIR="${COLABFOLDDIR}/alphafold/data/params"
+ENV MSATOOLS="${COLABFOLDDIR}/tools"
+
+# download the original alphafold as "${COLABFOLDDIR}"
+# echo "downloading the original alphafold as ${COLABFOLDDIR}..."
+# rm -rf ${COLABFOLDDIR}
+RUN git clone ${GIT_REPO} ${COLABFOLDDIR}
+RUN (cd ${COLABFOLDDIR}; git checkout 1d43aaff941c84dc56311076b58795797e49107b --quiet)
+
+# colabfold patches
+# echo "Applying several patches to be Alphafold2_advanced..."
+WORKDIR ${COLABFOLDDIR}
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/7cdf59d97f17cc09bc638f8de610876e49d1347c/colabfold/colabfold.py
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/7cdf59d97f17cc09bc638f8de610876e49d1347c/beta/colabfold_alphafold.py
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/7cdf59d97f17cc09bc638f8de610876e49d1347c/beta/pairmsa.py
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/03d3312d91a5c91acb0249dacd65a39f41469e7b/beta/protein.patch
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/03d3312d91a5c91acb0249dacd65a39f41469e7b/beta/config.patch
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/03d3312d91a5c91acb0249dacd65a39f41469e7b/beta/model.patch
+RUN wget -qnc https://raw.githubusercontent.com/sokrypton/ColabFold/03d3312d91a5c91acb0249dacd65a39f41469e7b/beta/modules.patch
+RUN wget -qnc https://raw.githubusercontent.com/YoshitakaMo/localcolabfold/b374358b479af4e311537502d09225b826118575/gpurelaxation.patch -O gpurelaxation.patch
+
+# donwload reformat.pl from hh-suite
+RUN wget -qnc https://raw.githubusercontent.com/soedinglab/hh-suite/master/scripts/reformat.pl
+# Apply multi-chain patch from Lim Heo @huhlim
+RUN patch -u alphafold/common/protein.py -i protein.patch && \
+patch -u alphafold/model/model.py -i model.patch && \
+patch -u alphafold/model/modules.py -i modules.patch && \
+patch -u alphafold/model/config.py -i config.patch
+
+# Downloading stereo_chemical_props.txt from https://git.scicore.unibas.ch/schwede/openstructure
+RUN wget -q https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt --no-check-certificate
+RUN mkdir -p ${COLABFOLDDIR}/alphafold/common && \
+mv stereo_chemical_props.txt ${COLABFOLDDIR}/alphafold/common
+
+# Install the conda/pip packages
+RUN conda install -c conda-forge cudatoolkit==10.2.89 -y
+RUN conda install -c conda-forge openmm==7.5.0 -y
+RUN conda install -c conda-forge pdbfixer==1.7 -y
+RUN conda install -c bioconda hmmer==3.3.2 hhsuite==3.3.0 -y
+RUN python -m pip install absl-py==0.13.0 biopython==1.79 chex==0.0.7 dm-haiku==0.0.4 dm-tree==0.1.6 immutabledict==2.0.0 jax==0.2.14 ml-collections==0.1.0 numpy==1.19.5 scipy==1.7.0 tensorflow-gpu==2.5.0
+RUN python -m pip install jupyter matplotlib py3Dmol tqdm
+RUN python -m pip install -U https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp37-none-manylinux2010_x86_64.whl
+
+# Apply OpenMM patch.
+RUN cd /opt/conda/lib/python3.7/site-packages && patch -p0 < ${COLABFOLDDIR}/docker/openmm.patch
+
+# Enable GPU-accelerated relaxation.
+RUN cd ${COLABFOLDDIR} && patch -u alphafold/relax/amber_minimize.py -i gpurelaxation.patch
+RUN cd ${COLABFOLDDIR} && wget -q "https://raw.githubusercontent.com/YoshitakaMo/localcolabfold/b374358b479af4e311537502d09225b826118575/runner.py"
+RUN cd ${COLABFOLDDIR} && wget -q "https://raw.githubusercontent.com/YoshitakaMo/localcolabfold/b374358b479af4e311537502d09225b826118575/runner_af2advanced.py"
+
+# echo "Making standalone command 'colabfold'..."
+RUN cd ${COLABFOLDDIR} && mkdir -p bin
+RUN echo $'#!/bin/bash \n\
+export NVIDIA_VISIBLE_DEVICES="all" \n\
+export TF_FORCE_UNIFIED_MEMORY="1" \n\
+export XLA_PYTHON_CLIENT_MEM_FRACTION="4.0" \n\
+export COLABFOLD_PATH="${COLABFOLDDIR}" \n\
+python ${COLABFOLDDIR}/runner_af2advanced.py \$@' > ${COLABFOLDDIR}/bin/colabfold
+
+ENV PATH="/opt/colabfold/bin:$PATH"
+
+# RUN python ${COLABFOLDDIR}/runner_af2advanced.py \$@ && EOF
+RUN chmod +x /opt/colabfold/bin/colabfold
+# cd ${COLABFOLDDIR}
+RUN wget -qnc https://raw.githubusercontent.com/YoshitakaMo/localcolabfold/b374358b479af4e311537502d09225b826118575/residue_constants.patch -O residue_constants.patch
+RUN wget -qnc https://raw.githubusercontent.com/YoshitakaMo/localcolabfold/b374358b479af4e311537502d09225b826118575/colabfold_alphafold.patch -O colabfold_alphafold.patch
+RUN patch -u alphafold/common/residue_constants.py -i residue_constants.patch
+RUN patch -u colabfold_alphafold.py -i colabfold_alphafold.patch
+
+# Downloading parameter files
+RUN mkdir -p ${PARAMS_DIR} && \
+curl -fL ${SOURCE_URL} | tar x -C ${PARAMS_DIR}
+
+# echo "Installation of Alphafold2_advanced finished."
 # Use 'Agg' for non-GUI backend
 # cd ${COLABFOLDDIR}/colabfold-conda/lib/python3.10/site-packages/colabfold
 # sed -i -e "s#from matplotlib import pyplot as plt#import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot as plt#g" plot.py
