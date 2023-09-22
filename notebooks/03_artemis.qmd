@@ -98,10 +98,12 @@ By default, several output files will be
 #### Artemis specific outputs
 By default, at the completion of a job (successful or otherwise) these 3 output files will be generated in the folder in which the job was submitted.
 
-|:--|---|
+|--------|--------|
 | JobName.**e**JobID | Contains **e**rror/warning messages – those usually printed to *stderr* |
 | JobName.**o**JobID | Contains **o**utput messages – those usually printed to *stdout* |
 | JobName.**o**JobID**_usage** | short summary of the resources **used** by your job |
+
+: PBS job outputs
 
 If your job has not completed successfully or AlphaFold outputs have not been generated as expected, these files may help diagnose what wen wrong (or inform you what went right!)
 
@@ -115,11 +117,22 @@ In our case, this should resolve to the directory
 ```output
 /project/Training/demo1/output_directory
 ```
-This folder will be created by AlphaFold if it does not exist, and fill it with the following key files.
+This folder will be created by AlphaFold if it does not exist, and will contain the predicted structures of the target protein represented in the following key files - but may vary depending on the options in your job.
 
-Quick-view an example of the output:
+|--------|--------|
+| msas | Folder of intermediate step output from other tools (`hmmer`, `kalign`) used to construct the input MSA.|
+| timings.json | A JSON format text file containing the times taken to run each section of the AlphaFold pipeline. |
+| ranking_debug.json | A JSON format text file containing the pLDDT values used to perform the model ranking, and a mapping back to the original model names. |
+| features.pkl |  A Python pickle file containing the input feature NumPy arrays used by the models to produce the structures. |
+| result_model_*.pkl ||
+| ranked_*.pdb | A PDB format text file containing the predicted structures, after reordering by model confidence. |
+| relaxed_model_*.pdb | A PDB format text file containing the predicted structure, after performing an Amber relaxation procedure on the unrelaxed structure prediction |
+| unrelaxed_model_*.pdb | A PDB format text file containing the predicted structure, exactly as outputted by the model. |
+
+
+Quick-view an example of the output (note: this requires X-11 forwarding to be enabled when connected to Artemis):
 ```bash
 qsub -X -I -P Training
-module load pymol
+module load pymol/2.4.0
 pymol /project/Training/DATA/example.pbd
 ```
