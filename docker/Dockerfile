@@ -18,14 +18,11 @@
 # Conda version now hardcoded.
 #
 # Build with:
-# sudo docker build -t sydneyinformaticshub/alphafold .
-# python -c "import tensorflow as tf; print(len(tf.config.list_physical_devices('GPU')))"
-#
-# Push with:
-# sudo docker push sydneyinformaticshub/alphafold
-#
+# sudo docker build -t sydneyinformaticshub/alphafold:alphafold_v2.2.3
+# sudo docker push sydneyinformaticshub/alphafold:alphafold_v2.2.3.
+#  sudo docker run -it  sydneyinformaticshub/alphafold:alphafold_v2.2.3
 # Run with:
-# sudo docker run -it --gpus=all sydneyinformaticshub/alphafold /bin/bash -c "python /app/alphafold/alphafold-2.3.2/run_alphafold.py \
+# sudo docker run -it --gpus=all sydneyinformaticshub/alphafold /bin/bash -c "/app/run_alphafold.sh \
 #   --data_dir=${ALPHADB} \
 #   --uniref90_database_path=${ALPHADB}/uniref90/uniref90.fasta \
 #   --mgnify_database_path=${ALPHADB}/mgnify/mgy_clusters_2018_12.fa \
@@ -41,12 +38,45 @@
 #   --bfd_database_path=${ALPHADB}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
 #   --uniref30_database_path=${ALPHADB}/uniclust30/uniclust30_2018_08/uniclust30_2018_0 \
 #  "
-# export SINGULARITY_CACHEDIR=`pwd`
-# export SINGULARITY_TMPDIR=`pwd`
-# singularity build alpha.img docker://sydneyinformaticshub/alphafold
 
+
+#Based on https://github.com/google-deepmind/alphafold/tree/86a0b8ec7a39698a7c2974420c4696ea4cb5743a/
+# 25 August 2022 v2.2.3
+ARG CUDA=10.2
 FROM nbutter/pytorch:ubuntu1604
+# FROM directive resets ARGS, so we specify again (the value is retained if
+# previously set).
+ARG CUDA
 
+# Use bash to support string substitution.
+SHELL ["/bin/bash", "-c"]
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        build-essential \
+        cmake \
+        cuda-command-line-tools-$(cut -f1,2 -d- <<< ${CUDA//./-}) \
+        git \
+        hmmer \
+        kalign \
+        tzdata \
+        wget \
+        unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get autoremove -y \
+    && apt-get clean
+
+# Compile HHsuite from source.
+RUN git clone --branch v3.3.0 https://github.com/soedinglab/hh-suite.git /tmp/hh-suite \
+    && mkdir /tmp/hh-suite/build \
+    && pushd /tmp/hh-suite/build \
+    && cmake -DCMAKE_INSTALL_PREFIX=/opt/hhsuite .. \
+    && make -j && make install \
+    && ln -s /opt/hhsuite/bin/* /usr/bin \
+    && popd \
+    && rm -rf /tmp/hh-suite
+
+# Install Miniconda package manager.
 RUN wget -q -P /tmp \
   https://repo.anaconda.com/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh \
     && bash /tmp/Miniconda3-py37_4.10.3-Linux-x86_64.sh -b -p /opt/conda \
@@ -56,60 +86,32 @@ RUN wget -q -P /tmp \
 RUN rm -rf /build/miniconda3
 ENV PATH="/opt/conda/bin:$PATH"
 
-RUN conda install -y pip
+WORKDIR /app/alphafold
 
-# Version 1.3.0, April 12 2022
-# https://github.com/YoshitakaMo/localcolabfold/tree/0ad333ffa24a9896361a54d8d2e18a493ec68184
-# This is 1.3.0 of colabfold https://github.com/sokrypton/ColabFold/tree/e765392222cec34e201261bfa10ad528a7553800
-ENV COLABFOLDDIR="/opt/colabfold"
+RUN wget https://github.com/deepmind/alphafold/archive/refs/tags/v2.2.3.zip && unzip v2.2.3.zip && mv alphafold-2.2.3/* . && rm -rf alphafold-2.2.3 && rm v2.2.3.zip
 
-WORKDIR ${COLABFOLDDIR}
+RUN wget -q -P /app/alphafold/alphafold/common/ \
+  https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt
 
-RUN wget https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt --no-check-certificate
-
-# Install the conda/pip packages
+RUN conda install pip -y
+# RUN pip install -r /app/alphafold/requirements.txt
 RUN conda install -c conda-forge cudatoolkit==10.2.89 -y
 RUN conda install -c conda-forge openmm==7.5.0 -y
 RUN conda install -c conda-forge pdbfixer==1.7 -y
-
-# Apply OpenMM patch.
-RUN wget -qnc https://raw.githubusercontent.com/deepmind/alphafold/918434f597c0f8a7bd999f878de474aeb0a0b4ae/docker/openmm.patch --no-check-certificate && \
- cd /opt/conda/lib/python3.7/site-packages && patch -s -p0 < ${COLABFOLDDIR}/openmm.patch && \
- rm ${COLABFOLDDIR}/openmm.patch
-
-RUN conda install -c conda-forge -c bioconda kalign3=3.2.2 hhsuite=3.3.0 -y
-RUN pip install "colabfold[alphafold] @ git+https://github.com/sokrypton/ColabFold@e765392222cec34e201261bfa10ad528a7553800"
+RUN pip install absl-py==0.13.0 biopython==1.79 chex==0.0.7 dm-haiku==0.0.4 dm-tree==0.1.6 immutabledict==2.0.0 ml-collections==0.1.0 numpy==1.19.5 pandas==1.3.4 protobuf==3.20.1 scipy==1.7.0 tensorflow-cpu==2.5.0
 RUN pip install -U https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.71+cuda102-cp37-none-manylinux2010_x86_64.whl
 RUN pip install jax==0.2.25
 
+# # Apply OpenMM patch.
+RUN cd /opt/conda/lib/python3.7/site-packages && patch -p0 < /app/alphafold/docker/openmm.patch
+#
+# # Add SETUID bit to the ldconfig binary so that non-root users can run it.
+RUN chmod u+s /sbin/ldconfig.real
 
-RUN mkdir -p ${COLABFOLDDIR}/bin && \
-  echo $'#!/bin/bash \n\
-export TF_FORCE_UNIFIED_MEMORY="1" \n\
-export XLA_PYTHON_CLIENT_MEM_FRACTION="4.0" \n\
-export COLABFOLDDIR=$COLABFOLDDIR \n\
-export XDG_CACHE_HOME="${COLABFOLDDIR}" \n\
-export PATH="/opt/conda/bin:$PATH" \n\
-/opt/conda/bin/colabfold_batch $@' > ${COLABFOLDDIR}/bin/colabfold
+RUN echo $'#!/bin/bash\n\
+ldconfig\n\
+python /app/alphafold/run_alphafold.py "$@"' > /app/run_alphafold.sh \
+  && chmod +x /app/run_alphafold.sh
 
-#ENV /opt/conda/lib/python3.7/site-packages/colabfold
-ENV PATH="/opt/colabfold/bin:$PATH"
-
-# hack to share the parameter files in a workstation.
-RUN cd /opt/conda/lib/python3.7/site-packages/colabfold && \
-sed -i -e "s#props_path = \"stereo_chemical_props.txt\"#props_path = \"${COLABFOLDDIR}/stereo_chemical_props.txt\"#" batch.py
-# Use gpu-accelerated relaxation.
-RUN cd /opt/conda/lib/python3.7/site-packages/alphafold/relax && \
-sed -i -e 's/CPU/CUDA/g' amber_minimize.py
-# Use 'Agg' for non-GUI backend
-RUN cd /opt/conda/lib/python3.7/site-packages/colabfold && \
-sed -i -e "s#from matplotlib import pyplot as plt#import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot as plt#g" plot.py
-
-RUN mkdir -p /usr/local/nvidia/lib && \
-  ln -s /usr/local/cuda/compat/libcuda.so /usr/local/nvidia/lib/libcuda.so.1
-
-# Run colabfold once to download the databases
-RUN echo '>T1084 Meio, Meiothermus silvanus, 73 residues| \n MAAHKGAEHHHKAAEHHEQAAKHHHAAAEHHEKGEHEQAAHHADTAYAHHKHAEEHAAQAAKHDAEHHAPKPH' > input.fasta && \
-mkdir out
-# RUN colabfold_search --db-load-mode 1 --threads 12 input.fasta $COLABFOLDDIR/database out
-RUN colabfold_batch --templates --num-recycle 1 input.fasta out/ --cpu
+ENV PATH="/app/:$PATH"
+# ENTRYPOINT ["/app/run_alphafold.sh"]
