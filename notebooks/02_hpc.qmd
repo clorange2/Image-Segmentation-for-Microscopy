@@ -38,10 +38,10 @@ Connections to Artemis are remote connections – you’ll never sit at one of A
 
 You can thus connect to Artemis from anywhere, requiring only a terminal emulator with an SSH client. (If you’re not on the USyd network (ie off-campus), you’ll also need to connect to the University’s VPN.
 
-If you followed the [Setup instructions](https://sydney-informatics-hub.github.io/training.alphafold/setup.html), then you should already have the required software installed. 
+If you followed the [Setup instructions](https://sydney-informatics-hub.github.io/training.alphafold/setup.html), then you should already have the required software installed.
 
 Once you are set up with an ssh client, connect with your unikey credentials with:
 
 ```bash
-ssh -x <unikey>@hpc.sydney.edu.au
+ssh -X <unikey>@hpc.sydney.edu.au
 ```
