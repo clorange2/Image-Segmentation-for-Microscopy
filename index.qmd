@@ -54,9 +54,6 @@ Our full CoC, with incident reporting guidelines, is available [Here](https://sy
 
 ## Schedule
 
-If your training includes multiple components, it is always nice to have a table with the schedule.
-With quarto we can make tables using markdown formating, like below.
-
 |  |  |
 | --- | :--- |
 | **In-depth** |

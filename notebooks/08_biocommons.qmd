@@ -5,15 +5,16 @@
 The [Australian Biocommons](https://www.biocommons.org.au/) is a digital capability aimed at enhancing Australian research in its ability to understand the molecular basis of life across environmental, agricultural and biomedical science.
 
 ## Galaxy Australia
-[Galaxy Australia](https://usegalaxy.org.au/login/start?redirect=None) is an open, web-based platform for accessible, reproducible and transparent computational research.
+[Galaxy Australia](https://usegalaxy.org.au/) is an open, web-based platform for accessible, reproducible and transparent computational research.
 
-https://site.usegalaxy.org.au/request/alphafold
+You must first register for Galaxy access using your Sydney credentials. This will give you access to the hundreds of bioinformatics tools on the platform.
+
+However, for access to AlphaFold an additional step must be made. Once registered with Galaxy [fill in this form to use AlphaFold](https://site.usegalaxy.org.au/request/alphafold).
 
 ## AlphaFold on Galaxy
-In https://usegalaxy.org.au/ Navigate to ALphaFold.
-Fill in the form and click Run Tool!
+Once you have access, searching for AlphaFold in the left hand menu will bring up the tool.
 
-Once you submit a session, you can then share the results:
-https://usegalaxy.org.au/datasets/a6e389a98c2d1678f2d92efc723dec14/preview
+Fill in the options and then click *Run Tool*!
 
-https://usegalaxy.org.au/published/history?id=3576200e51efc2d0
+From your dashboard on Galaxy, you can share any results you generate with the world:
+[https://usegalaxy.org.au/datasets/a6e389a98c2d1678f2d92efc723dec14/preview](https://usegalaxy.org.au/datasets/a6e389a98c2d1678f2d92efc723dec14/preview)

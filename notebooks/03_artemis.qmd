@@ -14,7 +14,7 @@ To actually run a computationally intensive AlphaFold job, we must create a PBS 
 
 ### Navigate to a working directory.
 When connecting to Artemis you will be in the directory `/home/<unikey>`. This folder has 10gb of storage only, so is not ideal to run computational work from. Rather, consider the `/scratch` and `/project` directories.
-For our demo, we will work in the *Training* project in a sub-folder of our creation. Your projects in the `/project` folder have up to 1TB of storage space available shared between other members of your [project](dashr.sydney.edu.au).
+For our demo, we will work in the *Training* project in a sub-folder of our creation. Your projects in the `/project` folder have up to 1TB of storage space available shared between other members of your [project](https://dashr.sydney.edu.au).
 
 Follow these steps to navigate to the project folder and create a new directory.
 ```bash
@@ -98,6 +98,7 @@ By default, several output files will be
 #### Artemis specific outputs
 By default, at the completion of a job (successful or otherwise) these 3 output files will be generated in the folder in which the job was submitted.
 
+|  |  |
 |--------|--------|
 | JobName.**e**JobID | Contains **e**rror/warning messages – those usually printed to *stderr* |
 | JobName.**o**JobID | Contains **o**utput messages – those usually printed to *stdout* |
@@ -119,6 +120,7 @@ In our case, this should resolve to the directory
 ```
 This folder will be created by AlphaFold if it does not exist, and will contain the predicted structures of the target protein represented in the following key files - but may vary depending on the options in your job.
 
+|  |  |
 |--------|--------|
 | msas | Folder of intermediate step output from other tools (`hmmer`, `kalign`) used to construct the input MSA.|
 | timings.json | A JSON format text file containing the times taken to run each section of the AlphaFold pipeline. |
@@ -134,5 +136,5 @@ Quick-view an example of the output (note: this requires X-11 forwarding to be e
 ```bash
 qsub -X -I -P Training
 module load pymol/2.4.0
-pymol /project/Training/DATA/example.pbd
+pymol example.pbd
 ```
