@@ -18,7 +18,8 @@ Singularity is a containerization tool designed with a focus on security and com
 We make use of our AlphaFold Docker images to build and run AF on Artemis. This is a two-step process. You must first build the docker image into a Singularity image. Then you may run it as below.
 
 Navigate to your project folder, e.g. `cd /project/Training/AF`
-We first make a new jobscript for the build step, `nano alpha_build.pbs`:
+
+First make a new jobscript for the build step, `nano alpha_build.pbs`:
 
 ```bash
 #!/bin/bash
@@ -42,7 +43,7 @@ You only have to do this once. Alternatively, you can build the image offline an
 
 Next, make a jobscript to actually run the image, `nano alpha_sing.pbs`
 
-```
+```bash
 #!/bin/bash
 #PBS -P Training
 #PBS -l select=1:ncpus=4:mem=32gb:ngpus=1
@@ -54,4 +55,12 @@ module load singularity cuda/10.2.89
 cd $PBS_O_WORKDIR
 
 singularity run --nv /project/Training/DATA/colab.img /bin/bash -c "colabfold_batch --amber --templates --num-recycle 3 /project/Training/DATA/input.fasta "$PBS_O_WORKDIR"/output"
+```
+
+## Colabfold singularity image
+
+Note: You can grab a copy of the 8GB Singularity image and skip the build step!
+
+```bash
+wget -O colab.img https://cloudstor.aarnet.edu.au/plus/s/OlBeNi6xNV9wBMr/download
 ```
