@@ -1,6 +1,6 @@
 # Introduction to the High Performance Computing
 
-# What is the Artemis HPC?
+## What is the Artemis HPC?
 
 HPC stands for 'High Performance Computing', our local HPC is called "Artemis". You might colloquially refer to Artemis as a ‘supercomputer’. Technically, Artemis is a computing cluster, which is a whole lot of individual computers networked together. AS of 2023, Artemis consists of:
 
