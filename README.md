@@ -1,4 +1,4 @@
-# SIH AlphaFold2 Training
+# SIH Image-Segmentation-for-Microscopy  Training
 
 ## File location
 
@@ -16,7 +16,7 @@
 
 The project will be built and rendered automatically (via github actions) at a URL with this format:
 ```html
-https://pages.github.sydney.edu.au/informatics/training.alphafold/
+https://github.com/clorange2/Image-Segmentation-for-Microscopy.git
 ```
 
 
